@@ -1,5 +1,7 @@
 # Drei-Achsen-Projekt
 
+[![Test](https://github.com/bukoeu/lasalXYZtest/actions/workflows/test.yml/badge.svg)](https://github.com/bukoeu/lasalXYZtest/actions/workflows/test.yml)
+
 Dieses Projekt beschreibt eine PLC-basierte Drei-Achsen-Steuerung mit TCP-Kommunikation, Bewegungslogik, Antriebsanbindung und Safety-/Hardwareueberwachung.
 
 ## Ziel
@@ -322,6 +324,7 @@ node tools/test_pc_console.js
 ```
 
 Auf GitHub prueft `.github/workflows/test.yml` dieselbe Kommandoformatierung automatisch.
+Das Test-Badge oben in dieser README zeigt, ob dieser Test aktuell erfolgreich ist.
 Wenn GitHub Pages im Repository aktiviert ist, veroeffentlicht `.github/workflows/pages.yml`
 die statische Konsole als `pc_console.html`.
 
