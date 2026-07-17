@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PC Steuerkonsole</title>
+  <style>
+    :root {
+      --bg: #eef2f5;
+      --panel: #ffffff;
+      --ink: #17202a;
+      --muted: #637083;
+      --line: #c8d2df;
+      --blue: #2563eb;
+      --blue-soft: #dbeafe;
+      --green: #15803d;
+      --green-soft: #dcfce7;
+      --red: #b91c1c;
+      --red-soft: #fee2e2;
+      --yellow: #b7791f;
+      --yellow-soft: #fff7d6;
+      --shadow: 0 12px 28px rgba(31, 42, 55, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 24px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 650;
+    }
+
+    .sub {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .status-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .badge.ok { color: var(--green); background: var(--green-soft); border-color: #9addad; }
+    .badge.warn { color: var(--yellow); background: var(--yellow-soft); border-color: #ebd38a; }
+    .badge.stop { color: var(--red); background: var(--red-soft); border-color: #f0aaa8; }
+
+    main {
+      display: grid;
+      grid-template-columns: 330px minmax(420px, 1fr) 380px;
+      gap: 16px;
+      padding: 16px;
+      max-width: 1480px;
+      margin: 0 auto;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .panel-head {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid #e0e6ee;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 650;
+    }
+
+    .panel-body {
+      padding: 16px;
+    }
+
+    label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 146px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .switch-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px solid #edf1f5;
+    }
+
+    .switch-line:first-child { border-top: 0; padding-top: 0; }
+    .switch-line strong { font-size: 14px; }
+    .switch-line span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .switch-line input { width: 44px; min-height: 22px; }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font: inherit;
+      font-weight: 600;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    button:hover { border-color: #8ba4c4; background: #f8fafc; }
+    button.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+    button.good { background: var(--green); color: #fff; border-color: var(--green); }
+    button.danger { background: var(--red); color: #fff; border-color: var(--red); }
+    button:disabled { cursor: not-allowed; opacity: 0.5; }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .axis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .axis-box {
+      border: 1px solid #dce3ec;
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfe;
+    }
+
+    .axis-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .jog-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .readout {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .meter {
+      border: 1px solid #dce3ec;
+      border-radius: 8px;
+      padding: 10px;
+      background: #fbfcfe;
+      min-width: 0;
+    }
+
+    .meter span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .meter strong {
+      display: block;
+      font-size: 18px;
+      font-family: Consolas, "Courier New", monospace;
+      overflow-wrap: anywhere;
+    }
+
+    .terminal {
+      height: 330px;
+      overflow: auto;
+      padding: 12px;
+      border-radius: 8px;
+      background: #101722;
+      color: #dbeafe;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .terminal .tx { color: #93c5fd; }
+    .terminal .rx { color: #86efac; }
+    .terminal .warn { color: #fde68a; }
+
+    .command-preview {
+      padding: 12px;
+      border: 1px solid #b7c6db;
+      border-radius: 8px;
+      background: var(--blue-soft);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .machine-view {
+      position: relative;
+      height: 300px;
+      border: 1px solid #dce3ec;
+      border-radius: 8px;
+      overflow: hidden;
+      background:
+        linear-gradient(#eef2f7 1px, transparent 1px),
+        linear-gradient(90deg, #eef2f7 1px, transparent 1px),
+        #ffffff;
+      background-size: 24px 24px;
+      margin-bottom: 14px;
+    }
+
+    .gantry {
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      top: 45%;
+      height: 10px;
+      border-radius: 999px;
+      background: #9ca3af;
+    }
+
+    .head {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      border: 3px solid #1f4f9e;
+      border-radius: 8px;
+      background: #bfdbfe;
+      transform: translate(-50%, -50%);
+      transition: left 180ms ease, top 180ms ease;
+    }
+
+    .head::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      width: 6px;
+      height: 42px;
+      background: #64748b;
+      transform: translateX(-50%);
+    }
+
+    .warning {
+      padding: 10px 12px;
+      border: 1px solid #ebd38a;
+      border-radius: 8px;
+      color: #7c4a03;
+      background: var(--yellow-soft);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 1180px) {
+      main { grid-template-columns: 1fr 1fr; }
+      .right-column { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 760px) {
+      header { align-items: flex-start; flex-direction: column; }
+      .status-strip { justify-content: flex-start; }
+      main { grid-template-columns: 1fr; padding: 10px; }
+      .axis-grid, .readout, .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>PC Steuerkonsole</h1>
+      <div class="sub">Sichere Bedienoberflaeche fuer LASAL TCP-Kommandos und GitHub-Testbetrieb</div>
+    </div>
+    <div class="status-strip">
+      <span id="modeBadge" class="badge warn">Simulation</span>
+      <span id="powerBadge" class="badge stop">Power aus</span>
+      <span id="safetyBadge" class="badge stop">Safety gesperrt</span>
+      <span class="badge">Port 1985</span>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="panel-head"><h2>Verbindung</h2></div>
+      <div class="panel-body">
+        <div class="grid-2">
+          <div class="field">
+            <label for="host">PLC / Steuerung IP</label>
+            <input id="host" value="10.101.10.150" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label for="port">TCP Port</label>
+            <input id="port" value="1985" inputmode="numeric">
+          </div>
+        </div>
+
+        <div class="switch-line">
+          <div>
+            <strong>Simulationsmodus</strong>
+            <span>Kommandos werden nur geloggt.</span>
+          </div>
+          <input id="simulation" type="checkbox" checked>
+        </div>
+        <div class="switch-line">
+          <div>
+            <strong>Safety Freigabe</strong>
+            <span>Erlaubt Power- und Bewegungsbefehle.</span>
+          </div>
+          <input id="safety" type="checkbox">
+        </div>
+
+        <div class="button-row">
+          <button id="connectBtn" class="primary" type="button">Verbinden testen</button>
+          <button id="clearBtn" type="button">Log leeren</button>
+        </div>
+
+        <div class="warning" style="margin-top: 14px;">
+          Reale Achsen nur mit Not-Aus, freiem Fahrraum und fachlicher Aufsicht bewegen.
+          Diese Konsole sendet aus dem Browser nicht direkt TCP, sondern erzeugt pruefbare Befehle.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="panel-head"><h2>Achsensteuerung</h2></div>
+      <div class="panel-body">
+        <div class="readout">
+          <div class="meter"><span>Status</span><strong id="stateText">IDLE</strong></div>
+          <div class="meter"><span>X</span><strong id="xRead">0</strong></div>
+          <div class="meter"><span>Y</span><strong id="yRead">0</strong></div>
+          <div class="meter"><span>P</span><strong id="pRead">0</strong></div>
+        </div>
+
+        <div class="machine-view" aria-label="Achsenvorschau">
+          <div class="gantry"></div>
+          <div id="head" class="head" style="left: 50%; top: 46%;"></div>
+        </div>
+
+        <div class="axis-grid">
+          <div class="axis-box">
+            <div class="axis-title"><strong>X Achse</strong><span>Position</span></div>
+            <input id="xPos" value="0" inputmode="numeric">
+            <div class="jog-row">
+              <button data-jog="x:-1" type="button">-X</button>
+              <button data-jog="x:1" type="button">+X</button>
+            </div>
+          </div>
+          <div class="axis-box">
+            <div class="axis-title"><strong>Y Achse</strong><span>Position</span></div>
+            <input id="yPos" value="0" inputmode="numeric">
+            <div class="jog-row">
+              <button data-jog="y:-1" type="button">-Y</button>
+              <button data-jog="y:1" type="button">+Y</button>
+            </div>
+          </div>
+          <div class="axis-box">
+            <div class="axis-title"><strong>P Wert</strong><span>Zusatz</span></div>
+            <input id="pPos" value="0" inputmode="numeric">
+            <div class="jog-row">
+              <button data-jog="p:-1" type="button">-P</button>
+              <button data-jog="p:1" type="button">+P</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top: 12px;">
+          <div class="field">
+            <label for="jogStep">Jog Schritt</label>
+            <input id="jogStep" value="100" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label for="speed">Sollgeschwindigkeit (%)</label>
+            <input id="speed" value="20" inputmode="numeric">
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button id="powerOnBtn" class="good" type="button">Power On</button>
+          <button id="powerOffBtn" class="danger" type="button">Power Off</button>
+          <button id="moveBtn" class="primary" type="button">Move Abs</button>
+          <button id="stopBtn" class="danger" type="button">Stop lokal</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="right-column">
+      <div class="panel-head"><h2>Kommando & Test</h2></div>
+      <div class="panel-body">
+        <div class="field">
+          <label>Aktuelles TCP-Kommando</label>
+          <div id="commandPreview" class="command-preview">CMOVEABS;00000000;00000000;00000000</div>
+        </div>
+        <div class="field">
+          <label for="psCommand">PowerShell fuer echten TCP-Test</label>
+          <textarea id="psCommand" readonly></textarea>
+        </div>
+        <div class="button-row">
+          <button id="copyBtn" type="button">PowerShell kopieren</button>
+          <button id="githubBtn" type="button">GitHub Test anzeigen</button>
+        </div>
+        <div class="field" style="margin-top: 12px;">
+          <label>Terminal</label>
+          <div id="terminal" class="terminal"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="pc_console.js"></script>
+  <script>
+    const commands = window.PcConsoleCommands;
+    const state = { x: 0, y: 0, p: 0, power: false, connected: false, machineState: "IDLE" };
+
+    const el = {
+      host: document.getElementById("host"),
+      port: document.getElementById("port"),
+      simulation: document.getElementById("simulation"),
+      safety: document.getElementById("safety"),
+      modeBadge: document.getElementById("modeBadge"),
+      powerBadge: document.getElementById("powerBadge"),
+      safetyBadge: document.getElementById("safetyBadge"),
+      stateText: document.getElementById("stateText"),
+      xRead: document.getElementById("xRead"),
+      yRead: document.getElementById("yRead"),
+      pRead: document.getElementById("pRead"),
+      xPos: document.getElementById("xPos"),
+      yPos: document.getElementById("yPos"),
+      pPos: document.getElementById("pPos"),
+      jogStep: document.getElementById("jogStep"),
+      speed: document.getElementById("speed"),
+      head: document.getElementById("head"),
+      commandPreview: document.getElementById("commandPreview"),
+      psCommand: document.getElementById("psCommand"),
+      terminal: document.getElementById("terminal"),
+    };
+
+    function readTargets() {
+      state.x = commands.clampNumber(el.xPos.value, commands.LIMITS.x.min, commands.LIMITS.x.max);
+      state.y = commands.clampNumber(el.yPos.value, commands.LIMITS.y.min, commands.LIMITS.y.max);
+      state.p = commands.clampNumber(el.pPos.value, commands.LIMITS.p.min, commands.LIMITS.p.max);
+    }
+
+    function currentMoveCommand() {
+      readTargets();
+      return commands.moveAbsCommand(state.x, state.y, state.p);
+    }
+
+    function log(kind, message) {
+      const row = document.createElement("div");
+      row.className = kind;
+      row.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      el.terminal.prepend(row);
+    }
+
+    function updateUi(command) {
+      const preview = command || currentMoveCommand();
+      el.commandPreview.textContent = preview;
+      el.psCommand.value = commands.buildPowerShell(el.host.value, el.port.value, preview);
+      el.xRead.textContent = state.x;
+      el.yRead.textContent = state.y;
+      el.pRead.textContent = state.p;
+      el.stateText.textContent = state.machineState;
+
+      el.modeBadge.textContent = el.simulation.checked ? "Simulation" : "TCP vorbereitet";
+      el.modeBadge.className = el.simulation.checked ? "badge warn" : "badge ok";
+      el.powerBadge.textContent = state.power ? "Power ein" : "Power aus";
+      el.powerBadge.className = state.power ? "badge ok" : "badge stop";
+      el.safetyBadge.textContent = el.safety.checked ? "Safety frei" : "Safety gesperrt";
+      el.safetyBadge.className = el.safety.checked ? "badge ok" : "badge stop";
+
+      const left = 12 + Math.min(76, Math.max(0, (state.x + 10000) / 20000 * 76));
+      const top = 18 + Math.min(58, Math.max(0, (state.y + 10000) / 20000 * 58));
+      el.head.style.left = `${left}%`;
+      el.head.style.top = `${top}%`;
+    }
+
+    function sendCommand(command) {
+      if (!el.safety.checked && command !== "CPOWEROF") {
+        log("warn", "BLOCKIERT: Safety Freigabe fehlt");
+        return;
+      }
+      log("tx", `TX ${command}`);
+      if (el.simulation.checked) {
+        log("rx", "RX SIM:ACK");
+      } else {
+        log("warn", "TCP aus Browser nicht direkt moeglich. PowerShell-Befehl rechts verwenden.");
+      }
+      updateUi(command);
+    }
+
+    document.getElementById("connectBtn").addEventListener("click", () => {
+      state.connected = true;
+      log("rx", `Verbindungskonfiguration OK: ${el.host.value}:${el.port.value}`);
+      updateUi();
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      el.terminal.innerHTML = "";
+      log("rx", "Log bereit");
+    });
+
+    document.getElementById("powerOnBtn").addEventListener("click", () => {
+      state.power = true;
+      state.machineState = "POWER";
+      sendCommand(commands.powerCommand(true));
+    });
+
+    document.getElementById("powerOffBtn").addEventListener("click", () => {
+      state.power = false;
+      state.machineState = "IDLE";
+      sendCommand(commands.powerCommand(false));
+    });
+
+    document.getElementById("moveBtn").addEventListener("click", () => {
+      if (!state.power) {
+        log("warn", "BLOCKIERT: Power ist aus");
+        return;
+      }
+      state.machineState = "MOVING";
+      sendCommand(currentMoveCommand());
+      setTimeout(() => {
+        state.machineState = "READY";
+        updateUi();
+      }, 320);
+    });
+
+    document.getElementById("stopBtn").addEventListener("click", () => {
+      state.machineState = "STOP";
+      state.power = false;
+      log("warn", "Lokaler Stop: weitere Bewegung blockiert, CPOWEROF vorbereitet");
+      updateUi(commands.powerCommand(false));
+    });
+
+    document.querySelectorAll("[data-jog]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const [axis, direction] = button.dataset.jog.split(":");
+        Object.assign(state, commands.jogTarget(axis, Number(direction), el.jogStep.value, state));
+        el.xPos.value = state.x;
+        el.yPos.value = state.y;
+        el.pPos.value = state.p;
+        updateUi();
+      });
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      await navigator.clipboard.writeText(el.psCommand.value);
+      log("rx", "PowerShell in Zwischenablage kopiert");
+    });
+
+    document.getElementById("githubBtn").addEventListener("click", () => {
+      log("rx", "GitHub Actions: node tools/test_pc_console.js prueft die Kommandoformatierung.");
+    });
+
+    ["input", "change"].forEach((eventName) => {
+      document.addEventListener(eventName, (event) => {
+        if (event.target.matches("input")) updateUi();
+      });
+    });
+
+    log("rx", "Konsole bereit");
+    updateUi();
+  </script>
+</body>
+</html>

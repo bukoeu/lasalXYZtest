@@ -286,11 +286,44 @@ koennen echte Bewegungen ausloesen.
 Zusaetzlich koennen folgende Dateien fuer die Analyse genutzt werden:
 
 ```text
+pc_console.html
 project_modules.html
 lasal_blocks.html
 lasal_viewer.html
 LASAL_POC_Dokumentation_DE.pdf
 ```
+
+## PC Textconsole / Steuerkonsole
+
+Die Datei `pc_console.html` stellt eine PC Textconsole mit grafischer Bedienoberflaeche bereit.
+Sie kann ohne Installation lokal in Chrome geoeffnet werden und arbeitet standardmaessig im
+Simulationsmodus. Dadurch koennen Kommandos getestet werden, ohne sofort echte Achsen oder
+Motoren anzusteuern.
+
+Funktionen:
+
+- Verbindungskonfiguration fuer PLC-IP und TCP-Port `1985`
+- Safety-Freigabe und Power-On/Power-Off Bedienung
+- X-/Y-/P-Positionen mit Jog-Schritten
+- Vorschau des TCP-Kommandos `CMOVEABS;XXXXXXXX;YYYYYYYY;PPPPPPPP`
+- Textconsole / Terminal-Log fuer simulierte TX/RX Meldungen
+- PowerShell-Ausgabe fuer echte TCP-Tests ausserhalb des Browsers
+
+Lokal starten:
+
+```powershell
+Start-Process chrome .\pc_console.html
+```
+
+GitHub-Test:
+
+```powershell
+node tools/test_pc_console.js
+```
+
+Auf GitHub prueft `.github/workflows/test.yml` dieselbe Kommandoformatierung automatisch.
+Wenn GitHub Pages im Repository aktiviert ist, veroeffentlicht `.github/workflows/pages.yml`
+die statische Konsole als `pc_console.html`.
 
 ## Status
 
