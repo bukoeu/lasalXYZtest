@@ -1,4 +1,4 @@
-# Drei-Achsen-Projekt
+# Drei-Achsen-Projekt (Prototyp)
 
 [![Test](https://github.com/bukoeu/lasalXYZtest/actions/workflows/test.yml/badge.svg)](https://github.com/bukoeu/lasalXYZtest/actions/workflows/test.yml)
 
