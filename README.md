@@ -289,6 +289,7 @@ Zusaetzlich koennen folgende Dateien fuer die Analyse genutzt werden:
 
 ```text
 pc_console.html
+docs/pc_console_snapshot.png
 project_modules.html
 lasal_blocks.html
 lasal_viewer.html
@@ -301,6 +302,8 @@ Die Datei `pc_console.html` stellt eine PC Textconsole mit grafischer Bedienober
 Sie kann ohne Installation lokal in Chrome geoeffnet werden und arbeitet standardmaessig im
 Simulationsmodus. Dadurch koennen Kommandos getestet werden, ohne sofort echte Achsen oder
 Motoren anzusteuern.
+
+![PC Textconsole Snapshot](docs/pc_console_snapshot.png)
 
 Funktionen:
 
@@ -316,6 +319,17 @@ Lokal starten:
 ```powershell
 Start-Process chrome .\pc_console.html
 ```
+
+Nutzung:
+
+1. `pc_console.html` in Chrome oeffnen.
+2. PLC-IP und TCP-Port pruefen. Standard ist `10.101.10.150:1985`.
+3. `Simulationsmodus` aktiviert lassen, wenn nur die Textconsole getestet werden soll.
+4. `Safety Freigabe` aktivieren, bevor Power- oder Bewegungsbefehle simuliert werden.
+5. Mit `Power On` das Kommando `CPOWERON` vorbereiten und im Terminal-Log pruefen.
+6. X-, Y- und P-Werte eintragen oder mit den Jog-Tasten veraendern.
+7. Mit `Move Abs` das Kommando `CMOVEABS;XXXXXXXX;YYYYYYYY;PPPPPPPP` erzeugen.
+8. Fuer echte TCP-Tests die PowerShell-Ausgabe kopieren und auf einem gesicherten PC ausfuehren.
 
 GitHub-Test:
 
