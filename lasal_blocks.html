@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LASAL Blockschema</title>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --ink: #1b2533;
+      --muted: #64748b;
+      --line: #9aa8b8;
+      --panel: #ffffff;
+      --blue: #dcecff;
+      --green: #ddf7ea;
+      --yellow: #fff2c7;
+      --red: #ffe1e1;
+      --violet: #eee6ff;
+      --cyan: #dff7fb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    header {
+      padding: 18px 24px 10px;
+      background: var(--panel);
+      border-bottom: 1px solid #d9e0ea;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 650;
+    }
+
+    .sub {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      border: 1px solid #c8d2df;
+      background: #fff;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .canvas {
+      position: relative;
+      width: min(1380px, calc(100vw - 32px));
+      height: 820px;
+      margin: 16px auto 28px;
+      background:
+        linear-gradient(#edf1f6 1px, transparent 1px),
+        linear-gradient(90deg, #edf1f6 1px, transparent 1px),
+        #fff;
+      background-size: 28px 28px;
+      border: 1px solid #d7dee8;
+      border-radius: 8px;
+      overflow: auto;
+      box-shadow: 0 12px 34px rgba(31, 42, 55, 0.08);
+    }
+
+    svg {
+      position: absolute;
+      inset: 0;
+      width: 1380px;
+      height: 820px;
+      pointer-events: none;
+    }
+
+    .box {
+      position: absolute;
+      width: 188px;
+      min-height: 92px;
+      border: 1px solid #b8c5d5;
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 8px 18px rgba(31, 42, 55, 0.08);
+      padding: 12px;
+      display: grid;
+      align-content: center;
+      gap: 7px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .box:hover {
+      border-color: #356bb3;
+      box-shadow: 0 10px 24px rgba(31, 89, 166, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .box strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .box span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .blue { background: var(--blue); }
+    .green { background: var(--green); }
+    .yellow { background: var(--yellow); }
+    .red { background: var(--red); }
+    .violet { background: var(--violet); }
+    .cyan { background: var(--cyan); }
+
+    .title {
+      position: absolute;
+      color: #506176;
+      font-size: 13px;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .legend {
+      position: absolute;
+      left: 26px;
+      bottom: 20px;
+      width: 360px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid #d7dee8;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .back {
+      color: #1f5da8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .canvas {
+        height: 720px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LASAL Blockschema</h1>
+    <div class="sub">Grafische HTML5-Ansicht der vermuteten Maschinenarchitektur</div>
+    <div class="toolbar">
+      <a class="back" href="file:///C:/tmp/LSLCL2/index.html">Zur Datei-Ansicht</a>
+      <span class="chip">TCP</span>
+      <span class="chip">Command</span>
+      <span class="chip">Motion</span>
+      <span class="chip">Safety</span>
+      <span class="chip">VARAN / SDIAS</span>
+    </div>
+  </header>
+
+  <main class="canvas" aria-label="LASAL Blockschema">
+    <svg viewBox="0 0 1380 820" aria-hidden="true">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#7b8da3"></path>
+        </marker>
+      </defs>
+      <g fill="none" stroke="#7b8da3" stroke-width="2.5" marker-end="url(#arrow)">
+        <path d="M 216 128 H 312"></path>
+        <path d="M 500 128 H 596"></path>
+        <path d="M 784 128 H 880"></path>
+        <path d="M 1068 128 H 1164"></path>
+
+        <path d="M 690 220 V 300"></path>
+        <path d="M 690 392 V 475"></path>
+        <path d="M 690 567 V 650"></path>
+
+        <path d="M 596 520 H 500"></path>
+        <path d="M 406 475 V 220"></path>
+        <path d="M 500 520 H 596"></path>
+
+        <path d="M 784 520 H 880"></path>
+        <path d="M 1068 520 H 1164"></path>
+
+        <path d="M 784 690 H 880"></path>
+        <path d="M 1068 690 H 1164"></path>
+      </g>
+      <g fill="none" stroke="#c78f35" stroke-width="2.5" stroke-dasharray="8 8" marker-end="url(#arrow)">
+        <path d="M 784 345 C 900 345 932 440 974 475"></path>
+        <path d="M 974 567 C 930 610 885 655 784 690"></path>
+      </g>
+    </svg>
+
+    <div class="title" style="left:32px;top:30px;">Kommunikation</div>
+    <div class="title" style="left:596px;top:30px;">Steuerlogik</div>
+    <div class="title" style="left:596px;top:438px;">Rueckmeldung</div>
+    <div class="title" style="left:880px;top:438px;">Hardware & Safety</div>
+    <div class="title" style="left:880px;top:608px;">Antriebskette</div>
+
+    <a class="box blue" style="left:28px;top:82px;" href="file:///C:/tmp/LSLCL2/LASAL/LASAL.lcp">
+      <strong>Externes System</strong>
+      <span>PC / HMI / Bedienung sendet Befehle</span>
+    </a>
+
+    <a class="box blue" style="left:312px;top:82px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/_TCPIP_SERVER/_TCPIP_SERVER.st">
+      <strong>TCP Server</strong>
+      <span>Empfang ueber Netzwerk</span>
+    </a>
+
+    <a class="box blue" style="left:596px;top:82px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/CommandDecoder/CommandDecoder.st">
+      <strong>Command Decoder</strong>
+      <span>Befehle lesen und interpretieren</span>
+    </a>
+
+    <a class="box blue" style="left:880px;top:82px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/CommandRouter/CommandRouter.st">
+      <strong>Command Router</strong>
+      <span>Befehle an Zielmodule verteilen</span>
+    </a>
+
+    <a class="box green" style="left:1164px;top:82px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/Controller/Controller.st">
+      <strong>Controller</strong>
+      <span>Ablaufsteuerung / State Machine</span>
+    </a>
+
+    <a class="box green" style="left:596px;top:300px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/NCController/NCController.st">
+      <strong>NC Controller</strong>
+      <span>Bewegungslogik und Sequenzen</span>
+    </a>
+
+    <a class="box green" style="left:596px;top:475px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/_LMCAxis/_LMCAxis.st">
+      <strong>Achsen X / Y / Z</strong>
+      <span>Position, Homing, Bewegung</span>
+    </a>
+
+    <a class="box cyan" style="left:312px;top:475px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/Encoders/Encoders.st">
+      <strong>Encoder</strong>
+      <span>Istposition und Rueckmeldung</span>
+    </a>
+
+    <a class="box yellow" style="left:880px;top:475px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/SafetyManager/SafetyManager.st">
+      <strong>Safety Manager</strong>
+      <span>Limits, Not-Aus, sichere Zustaende</span>
+    </a>
+
+    <a class="box violet" style="left:1164px;top:475px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/VaranManager/VaranManager.st">
+      <strong>VARAN / SDIAS</strong>
+      <span>Bus, I/O und SIGMATEK Hardware</span>
+    </a>
+
+    <a class="box green" style="left:596px;top:650px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/DrivePosControl/DrivePosControl.st">
+      <strong>DrivePosControl</strong>
+      <span>Positionsregler</span>
+    </a>
+
+    <a class="box red" style="left:880px;top:650px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/_DriveAxis/_DriveAxis.st">
+      <strong>Drive Axis</strong>
+      <span>Antriebsobjekte</span>
+    </a>
+
+    <a class="box red" style="left:1164px;top:650px;" href="file:///C:/tmp/LSLCL2/LASAL/Drive/">
+      <strong>Motoren / Drives</strong>
+      <span>DC062 / UC3 / UM3S Parameter</span>
+    </a>
+
+    <a class="box cyan" style="left:28px;top:300px;" href="file:///C:/tmp/LSLCL2/LASAL/Network/PickPlace/PickPlace.lcn">
+      <strong>PickPlace</strong>
+      <span>Maschinen-Netzwerk</span>
+    </a>
+
+    <a class="box cyan" style="left:28px;top:475px;" href="file:///C:/tmp/LSLCL2/LASAL/Network/XAxis/XAxis.lcn">
+      <strong>XAxis</strong>
+      <span>Achs-Netzwerk</span>
+    </a>
+
+    <div class="legend">
+      Jede Box ist anklickbar und fuehrt zur passenden Datei im LASAL-Projekt. Die Linien zeigen den groben Datenfluss: Befehl rein, Bewegung berechnen, Safety pruefen, Hardware/Drives ansteuern, Encoderwerte zurueck.
+    </div>
+  </main>
+</body>
+</html>

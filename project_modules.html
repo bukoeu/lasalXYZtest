@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LASAL Projektmodule</title>
+  <style>
+    :root {
+      --bg: #f4f6f9;
+      --panel: #ffffff;
+      --ink: #17202a;
+      --muted: #5f7084;
+      --line: #b9c7d6;
+      --root: #dcecff;
+      --headers: #eef2f7;
+      --classes: #e3f7e9;
+      --net: #fff2c7;
+      --drive: #ffe3e3;
+      --obj: #eee6ff;
+      --doc: #e0f7fb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    header {
+      padding: 18px 24px 12px;
+      background: var(--panel);
+      border-bottom: 1px solid #d8e0ea;
+    }
+    h1 { margin: 0; font-size: 24px; }
+    .sub { margin-top: 4px; color: var(--muted); font-size: 13px; }
+    .canvas {
+      position: relative;
+      width: 1440px;
+      height: 940px;
+      margin: 18px auto;
+      background:
+        linear-gradient(#edf1f6 1px, transparent 1px),
+        linear-gradient(90deg, #edf1f6 1px, transparent 1px),
+        #fff;
+      background-size: 28px 28px;
+      border: 1px solid #d8e0ea;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 12px 34px rgba(31, 42, 55, 0.08);
+    }
+    svg {
+      position: absolute;
+      inset: 0;
+      width: 1440px;
+      height: 940px;
+      pointer-events: none;
+    }
+    .box {
+      position: absolute;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px 12px;
+      color: var(--ink);
+      text-decoration: none;
+      box-shadow: 0 8px 18px rgba(31, 42, 55, 0.07);
+    }
+    .box:hover { border-color: #2f6db8; transform: translateY(-1px); }
+    .box strong { display: block; font-size: 15px; margin-bottom: 4px; }
+    .box span { display: block; color: var(--muted); font-size: 12px; line-height: 1.28; }
+    .root { background: var(--root); width: 220px; min-height: 86px; }
+    .section { width: 190px; min-height: 82px; }
+    .headers { background: var(--headers); }
+    .classes { background: var(--classes); }
+    .net { background: var(--net); }
+    .drive { background: var(--drive); }
+    .obj { background: var(--obj); }
+    .doc { background: var(--doc); }
+    .network {
+      width: 210px;
+      min-height: 92px;
+      background: #fff8df;
+    }
+    .object {
+      width: 170px;
+      min-height: 62px;
+      background: #ffffff;
+    }
+    .hw { background: #f1eaff; }
+    .motion { background: #e6f8ee; }
+    .comm { background: #e5f0ff; }
+    .title {
+      position: absolute;
+      font-size: 13px;
+      color: #536476;
+      font-weight: 650;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+    .note {
+      position: absolute;
+      left: 24px;
+      bottom: 22px;
+      width: 470px;
+      padding: 12px;
+      border: 1px solid #d8e0ea;
+      border-radius: 8px;
+      background: rgba(255,255,255,.93);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .toolbar a { color: #1f5da8; font-weight: 600; text-decoration: none; }
+    @media (max-width: 1480px) {
+      .canvas { width: calc(100vw - 24px); overflow: auto; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>LASAL Projektmodule</h1>
+  <div class="sub">Echte Hauptstruktur aus LASAL.lcp und den Network-Dateien, nicht Funktionsablauf</div>
+  <div class="toolbar">
+    <a href="file:///C:/tmp/LSLCL2/index.html">Datei-Viewer</a>
+    <a href="file:///C:/tmp/LSLCL2/blocks.html">Funktionsschema</a>
+    <a href="file:///C:/tmp/LSLCL2/LASAL/LASAL.lcp">LASAL.lcp</a>
+  </div>
+</header>
+
+<main class="canvas">
+  <svg viewBox="0 0 1440 940" aria-hidden="true">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#8392a6"></path>
+      </marker>
+    </defs>
+    <g fill="none" stroke="#8392a6" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M 260 105 H 360"></path>
+      <path d="M 260 105 C 330 105 330 210 360 210"></path>
+      <path d="M 260 105 C 330 105 330 315 360 315"></path>
+      <path d="M 260 105 C 330 105 330 420 360 420"></path>
+      <path d="M 260 105 C 330 105 330 525 360 525"></path>
+      <path d="M 260 105 C 330 105 330 630 360 630"></path>
+
+      <path d="M 550 315 H 650"></path>
+      <path d="M 550 315 C 610 315 610 170 650 170"></path>
+      <path d="M 550 315 C 610 315 610 275 650 275"></path>
+      <path d="M 550 315 C 610 315 610 380 650 380"></path>
+      <path d="M 550 315 C 610 315 610 485 650 485"></path>
+      <path d="M 550 315 C 610 315 610 590 650 590"></path>
+
+      <path d="M 860 170 H 930"></path>
+      <path d="M 860 275 H 930"></path>
+      <path d="M 860 380 H 930"></path>
+      <path d="M 860 485 H 930"></path>
+      <path d="M 860 590 H 930"></path>
+    </g>
+  </svg>
+
+  <div class="title" style="left:40px;top:36px;">Projektdatei</div>
+  <div class="title" style="left:360px;top:36px;">LCP-Hauptbereiche</div>
+  <div class="title" style="left:650px;top:36px;">NetworkFiles</div>
+  <div class="title" style="left:930px;top:36px;">Wichtige Objekte pro Netzwerk</div>
+
+  <a class="box root" style="left:40px;top:70px;" href="file:///C:/tmp/LSLCL2/LASAL/LASAL.lcp">
+    <strong>LASAL.lcp</strong>
+    <span>Projekt Version 13<br>CompilerVersion 56<br>Large / CLASSType</span>
+  </a>
+
+  <a class="box section headers" style="left:360px;top:70px;" href="file:///C:/tmp/LSLCL2/LASAL/LASAL.lcp">
+    <strong>HeaderFiles</strong>
+    <span>80 Eintraege<br>Include, Source, Interfaces</span>
+  </a>
+  <a class="box section classes" style="left:360px;top:175px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/">
+    <strong>ClassFiles</strong>
+    <span>112 Eintraege<br>ST/C++ Klassen</span>
+  </a>
+  <a class="box section net" style="left:360px;top:280px;" href="file:///C:/tmp/LSLCL2/LASAL/Network/">
+    <strong>NetworkFiles</strong>
+    <span>5 LASAL-Netzwerke<br>Objekt-Instanzen</span>
+  </a>
+  <a class="box section obj" style="left:360px;top:385px;" href="file:///C:/tmp/LSLCL2/LASAL/">
+    <strong>ObjectFiles</strong>
+    <span>Loader\\Source\\Loader.lob<br>downloadable=false</span>
+  </a>
+  <a class="box section drive" style="left:360px;top:490px;" href="file:///C:/tmp/LSLCL2/LASAL/Drive/">
+    <strong>DriveFiles</strong>
+    <span>5 Drive-Konfigurationen<br>_DriveAxis1..4</span>
+  </a>
+  <a class="box section doc" style="left:360px;top:595px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/">
+    <strong>DocuFiles</strong>
+    <span>2 VOV-Dateien<br>ST151 / _LMCAxis</span>
+  </a>
+
+  <a class="box network" style="left:650px;top:125px;" href="file:///C:/tmp/LSLCL2/LASAL/Network/TcpServer/TcpServer.lcn">
+    <strong>Network: TcpServer</strong>
+    <span>Command-Kommunikation<br>TCP Port 1985</span>
+  </a>
+  <a class="box network" style="left:650px;top:230px;" href="file:///C:/tmp/LSLCL2/LASAL/Network/HW_Network/HW_Network.lcn">
+    <strong>Network: HW_Network</strong>
+    <span>Hardware, Drives, Safety<br>VARAN / SDIAS</span>
+  </a>
+  <a class="box network" style="left:650px;top:335px;" href="file:///C:/tmp/LSLCL2/LASAL/Network/XAxis/XAxis.lcn">
+    <strong>Network: XAxis</strong>
+    <span>X/Y Achsen und Motion<br>MoveController</span>
+  </a>
+  <a class="box network" style="left:650px;top:440px;" href="file:///C:/tmp/LSLCL2/LASAL/Network/EncoderSimulation/EncoderSimulation.lcn">
+    <strong>Network: EncoderSimulation</strong>
+    <span>Encoder-Objekt<br>Simulations-/Rueckmeldung</span>
+  </a>
+  <a class="box network" style="left:650px;top:545px;" href="file:///C:/tmp/LSLCL2/LASAL/Network/PickPlace/PickPlace.lcn">
+    <strong>Network: PickPlace</strong>
+    <span>Z-Achse und Pick/Place<br>DrivePosControl3</span>
+  </a>
+
+  <a class="box object comm" style="left:930px;top:108px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/CommandRouter/CommandRouter.st">
+    <strong>commandRouter</strong>
+    <span>Class: CommandRouter</span>
+  </a>
+  <a class="box object comm" style="left:1118px;top:108px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/CommandServer/CommandServer.st">
+    <strong>commandServer</strong>
+    <span>Class: CommandServer</span>
+  </a>
+
+  <a class="box object hw" style="left:930px;top:210px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/_DriveAxis/_DriveAxis.st">
+    <strong>_DriveAxis1..4</strong>
+    <span>Class: _DriveAxis</span>
+  </a>
+  <a class="box object hw" style="left:1118px;top:210px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/_DriveMng_DC062/_DriveMng_DC062.st">
+    <strong>_DriveMng_DC0621..4</strong>
+    <span>Drive Manager</span>
+  </a>
+  <a class="box object hw" style="left:930px;top:282px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/HwControl/HwControl.st">
+    <strong>HwControl1</strong>
+    <span>Class: HwControl</span>
+  </a>
+  <a class="box object hw" style="left:1118px;top:282px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/SafetyManager/SafetyManager.st">
+    <strong>SafetyManager</strong>
+    <span>Safety network object</span>
+  </a>
+
+  <a class="box object motion" style="left:930px;top:355px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/_LMCAxis/_LMCAxis.st">
+    <strong>_LMCAxis_lineair_X</strong>
+    <span>Class: _LMCAxis</span>
+  </a>
+  <a class="box object motion" style="left:1118px;top:355px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/_LMCAxis/_LMCAxis.st">
+    <strong>_LMCAxis_lineair_Y</strong>
+    <span>Class: _LMCAxis</span>
+  </a>
+  <a class="box object motion" style="left:930px;top:427px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/MoveController/MoveController.st">
+    <strong>moveController</strong>
+    <span>Class: MoveController</span>
+  </a>
+  <a class="box object motion" style="left:1118px;top:427px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/NCController/NCController.st">
+    <strong>NCController1</strong>
+    <span>Class: NCController</span>
+  </a>
+
+  <a class="box object" style="left:930px;top:510px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/Encoders/Encoders.st">
+    <strong>Encoders1</strong>
+    <span>Class: Encoders</span>
+  </a>
+
+  <a class="box object motion" style="left:930px;top:588px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/_LMCAxis/_LMCAxis.st">
+    <strong>_ZAxis</strong>
+    <span>Class: _LMCAxis</span>
+  </a>
+  <a class="box object motion" style="left:1118px;top:588px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/DrivePosControl/DrivePosControl.st">
+    <strong>DrivePosControl3</strong>
+    <span>Class: DrivePosControl</span>
+  </a>
+  <a class="box object motion" style="left:930px;top:660px;" href="file:///C:/tmp/LSLCL2/LASAL/Class/RefSwitchCurrent/RefSwitchCurrent.st">
+    <strong>RefSwitchCurrent3</strong>
+    <span>Class: RefSwitchCurrent</span>
+  </a>
+
+  <div class="note">
+    Das ist die eigentliche Projektstruktur: oben die Hauptdatei `LASAL.lcp`, daraus die LCP-Bereiche, darunter die fuenf echten `NetworkFiles` und rechts exemplarisch die wichtigsten Objektinstanzen aus den `.lcn`-Dateien. Die vorherige Grafik war nur ein Funktionsablauf.
+  </div>
+</main>
+</body>
+</html>
